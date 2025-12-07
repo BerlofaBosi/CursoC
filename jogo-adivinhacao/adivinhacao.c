@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define NUMERO_TENTATIVAS 5
+#define NUMERO_SECRETO 42
 
 int main() {
 	// Imprime o cabeçalho do nosso jogo.
@@ -8,24 +8,32 @@ int main() {
 	printf("* Bem vindo ao nosso jogo de adivinhação! *\n");
 	printf("*******************************************\n");
 
-	int numeroSecreto = 42;
-
 	int chute;
+	int tentativa = 1;
 
-	for (int i = 1; i <= NUMERO_TENTATIVAS; i++) {
+	while (true) {
 
-		printf("Tentativa %d. Qual é o seu chute? ", i); scanf("%d", &chute);
-		
+		printf("Tentativa %d. Qual é o seu chute? ", tentativa); scanf("%d", &chute);
 		printf("Seu chute foi %d.\n", chute);
 
 
-		bool acertou = chute == numeroSecreto;
-		bool maior = chute > numeroSecreto;
-		bool menor = chute < numeroSecreto;
+		// Validação do input do usuário
+		if (chute < 0) {
+			printf("Você não pode chutar números negativos!\n");
+
+			continue;
+		}
+
+
+		// Teste lógico do valor inputado
+		bool acertou = chute == NUMERO_SECRETO;
+		bool maior = chute > NUMERO_SECRETO;
+
 
 		if ( acertou ) {
-			printf("Parabens! Voce acertou!\n");
-			printf("Jogue de novo, voce e bom!\n");
+			printf("Parabens! Voce acertou em %d tentativas!\n", tentativa);
+			printf("Fim de Jogo!\n");
+
 			break;
 		}
 
@@ -37,7 +45,11 @@ int main() {
 			printf("Seu chute foi menor que o numero secreto.\n");
 		}
 
+
 		printf("Voce errou!\n");
 		printf("Nao desanime, basta tentar de novo...\n");
+
+
+		tentativa++;
 	}
 }
